@@ -8,7 +8,7 @@ import java.util.List;
  * Created by artemaliev on 07/09/15.
  */
 public class IntSort {
-  static int partition(int arr[], int low, int high)
+  private static int partition(int arr[], int low, int high)
   {
     int pivot = arr[high];
     int i = (low-1);
