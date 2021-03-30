@@ -121,7 +121,7 @@ public class SparseMatrix extends Matrix {
     return start;
   }
 
-  public Matrix stodmul(Matrix o)  {
+  public Matrix mulSD(Matrix o)  {
     SparseMatrix res = new SparseMatrix(this.h, o.w);
     ArrayList<Double> tempdata = new ArrayList<>();
     ArrayList<Integer> columnNumber = new ArrayList<>();
@@ -156,7 +156,7 @@ public class SparseMatrix extends Matrix {
     }
     return res;
   }
-  public Matrix stosmul(Matrix o) {
+  public Matrix mulSS(Matrix o) {
     SparseMatrix s=(SparseMatrix) o.transposition();
     SparseMatrix res=new SparseMatrix(this.h,s.h);
     ArrayList<Double> tempdata = new ArrayList<>();
@@ -219,10 +219,10 @@ public class SparseMatrix extends Matrix {
       throw new WrongSizeException();
     }
     Matrix mulm;
-    if (o instanceof DenseMatrix) mulm = this.stodmul(o);
+    if (o instanceof DenseMatrix) mulm = this.mulSD(o);
     else
     {
-      mulm=this.stosmul(o);
+      mulm=this.mulSS(o);
     }
     return mulm;
   }
@@ -233,14 +233,14 @@ public class SparseMatrix extends Matrix {
       throw new WrongSizeException();
     }
     Matrix mulm;
-    if (o instanceof DenseMatrix) mulm = this.stodmul(o);
+    if (o instanceof DenseMatrix) mulm = this.mulSD(o);
     else
     {
-      mulm=this.mthstosmul(o);
+      mulm=this.mthmulSS(o);
     }
     return mulm;
   }
-  public SparseMatrix mthstosmul(final Matrix o) throws InterruptedException {
+  public SparseMatrix mthmulSS(final Matrix o) throws InterruptedException {
     final SparseMatrix s2=(SparseMatrix) o.transposition();
     final SparseMatrix s1=this;
     final SparseMatrix res=new SparseMatrix(s1.h,s2.h);
@@ -329,27 +329,6 @@ public class SparseMatrix extends Matrix {
     return res;
   }
 
-
-
-  public String SMdebug() {
-    StringBuilder alpha = new StringBuilder();
-    alpha.append("El: ");
-    for (double element : data) {
-      alpha.append(element).append(" ");
-    }
-    alpha.append("\n");
-    alpha.append("NumColumns: ");
-    for (int index : cols) {
-      alpha.append(index).append(" ");
-    }
-    alpha.append("\n");
-    alpha.append("NumEl: ");
-    for (int j : rowIndex) {
-      alpha.append(j).append(" ");
-    }
-    alpha.append("\n");
-    return alpha.toString();
-  }
 
   @Override
   public String toString() {
